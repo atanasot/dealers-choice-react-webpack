@@ -28,5 +28,7 @@ const syncAndSeed = async() => {
 
 module.exports = {
     syncAndSeed,
-    Num
+    models: {
+        Num,
+    }
 }

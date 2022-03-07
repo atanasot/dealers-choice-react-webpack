@@ -3,16 +3,38 @@
 
 import React from 'react'
 import ReactDom from 'react-dom'
+const axios = require('axios')
 
 class App extends React.Component {
     constructor() {
         super()
-        console.log('in constructor!')
+        this.state = {
+            numbers: [],
+            loading: false
+        }
     }
+
+    async componentDidMount() {
+        try {
+            const axiosNumbers = (await axios.get('/api/numbers')).data
+            console.log(axiosNumbers)
+            this.setState({
+                numbers: axiosNumbers
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     render() {
+        if (this.state.loading) return <h2>Loading...</h2>
         return (
             <div>
-                <p>Hey</p>
+                <ul>
+                    {this.state.numbers.map(number => (
+                        <li key={number.id}>{number.name}</li>
+                    ))}
+                </ul>
             </div>
         )
     }
