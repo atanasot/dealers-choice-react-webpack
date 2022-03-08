@@ -26,6 +26,16 @@ app.post("/api/numbers", async (req, res, next) => {
   }
 });
 
+app.delete("/api/numbers/:id", async(req, res, next) => {
+    try {
+        const number = await Num.findByPk(req.params.id)
+        await number.destroy()
+        res.sendStatus(204) //No content
+    } catch (err) {
+        next(err)
+    }
+})
+
 const port = process.env.PORT || 3000;
 
 const start = async () => {

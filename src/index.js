@@ -1,51 +1,73 @@
 //console.log('hello world') //this code we should see in the browser
 // we actually run the dist/main.js in the server because its compiled into JS
 
-import React from 'react'
-import ReactDom from 'react-dom'
-const axios = require('axios')
+import React from "react";
+import ReactDom from "react-dom";
+const axios = require("axios");
 
 class App extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            numbers: [],
-            loading: false
-        }
-    }
+  constructor() {
+    super();
+    this.state = {
+      numbers: [],
+      loading: true,
+    };
+  }
 
-    async componentDidMount() {
-        try {
-            const axiosNumbers = (await axios.get('/api/numbers')).data
-            console.log(axiosNumbers)
-            this.setState({
-                numbers: axiosNumbers
-            })
-        } catch (err) {
-            console.log(err)
-        }
+  async componentDidMount() {
+    try {
+      const axiosNumbers = (await axios.get("/api/numbers")).data;
+      //console.log(axiosNumbers)
+      this.setState({
+        numbers: axiosNumbers,
+        loading: false,
+      });
+    } catch (err) {
+      console.log(err);
     }
+  }
 
-    // for post method
-    async addNumber () {
-        const newNumber = (await axios.post('/api/numbers')).data
-        const numbers = [...this.state.numbers, newNumber]
-        this.setState({numbers}) //render after adding a new number
-    }
+  // for post method
+  async addNumber() {
+    const newNumber = (await axios.post("/api/numbers")).data;
+    const numbers = [...this.state.numbers, newNumber];
+    this.setState({ numbers }); //render after adding a new number
+    console.log(numbers);
+  }
 
-    render() {
-        if (this.state.loading) return <h2>Loading...</h2>
-        return (
-            <div>
-                <button onClick={()=> this.addNumber()}>Add Number</button>
-                <ul>
-                    {this.state.numbers.map(number => (
-                        <li key={number.id}>{number.name}</li>
-                    ))}
-                </ul>
-            </div>
-        )
+  //for delete
+  async destroy(numberId) {
+    try {
+      await axios.delete(`/api/numbers/${numberId}`);
+      const numbers = this.state.numbers.filter(
+        (number) => number.id !== numberId
+      );
+      this.setState({ numbers });
+    } catch (err) {
+      console.log(err);
     }
+  }
+
+  render() {
+    if (this.state.loading) return <h2>Loading...</h2>;
+    return (
+      <div>
+        <button className="addNum" onClick={() => this.addNumber()}>
+          Add Number
+        </button>
+        <ul>
+          {this.state.numbers.map((number) => (
+            <li key={number.id}>
+              {number.name}
+              <button onClick={() => this.destroy(number.id)} className="delete">
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
-ReactDom.render(<App />, document.querySelector('#root'))
+ReactDom.render(<App />, document.querySelector("#root"));
