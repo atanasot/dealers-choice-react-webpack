@@ -26,10 +26,18 @@ class App extends React.Component {
         }
     }
 
+    // for post method
+    async addNumber () {
+        const newNumber = (await axios.post('/api/numbers')).data
+        const numbers = [...this.state.numbers, newNumber]
+        this.setState({numbers}) //render after adding a new number
+    }
+
     render() {
         if (this.state.loading) return <h2>Loading...</h2>
         return (
             <div>
+                <button onClick={()=> this.addNumber()}>Add Number</button>
                 <ul>
                     {this.state.numbers.map(number => (
                         <li key={number.id}>{number.name}</li>
