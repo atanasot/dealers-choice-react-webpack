@@ -1,18 +1,45 @@
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  box-sizing: border-box;
+  background-color: powderblue;
+}
+h1 {
+    font-style: bold;
+    color:rgb(48, 41, 33);
+    margin: 40px; 
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+li {
+  padding: 25px;
+  align-self: flex-start;
+  color: rgb(48, 41, 33);
+  font-size: 18px;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
     text-align: center;
-    box-sizing: border-box;
-  }
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
-  ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    justify-content: space-between;
-    flex-flow: row wrap;
-  }
-
-  li {
-    padding: 25px;
-    align-self: flex-start;
+.delete {
+  background-color: rgb(207, 56, 56);
+  padding: 8px;
+  font-size: 18px;
 }

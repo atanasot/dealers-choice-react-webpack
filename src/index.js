@@ -1,6 +1,3 @@
-//console.log('hello world') //this code we should see in the browser
-// we actually run the dist/main.js in the server because its compiled into JS
-
 import React from "react";
 import ReactDom from "react-dom";
 const axios = require("axios");
@@ -17,7 +14,6 @@ class App extends React.Component {
   async componentDidMount() {
     try {
       const axiosNumbers = (await axios.get("/api/numbers")).data;
-      //console.log(axiosNumbers)
       this.setState({
         numbers: axiosNumbers,
         loading: false,
@@ -59,7 +55,10 @@ class App extends React.Component {
           {this.state.numbers.map((number) => (
             <li key={number.id}>
               {number.name}
-              <button onClick={() => this.destroy(number.id)} className="delete">
+              <button
+                onClick={() => this.destroy(number.id)}
+                className="delete"
+              >
                 X
               </button>
             </li>
