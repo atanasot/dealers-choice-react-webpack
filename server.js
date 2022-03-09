@@ -6,7 +6,13 @@ const {
   models: { Num },
 } = require("./db");
 
+//Middleware
+
+app.use(express.static(path.join(__dirname, "public"))); //getting the css file
+
 app.use("/dist", express.static(path.join(__dirname, "dist"))); //getting the main.js that loads the script in the html
+
+// Routes
 
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "index.html"))); //getting the html file
 
