@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const { syncAndSeed, models: {Num} } = require("./db");
+const {
+  syncAndSeed,
+  models: { Num },
+} = require("./db");
 const router = require("./numbers.routes");
 
 app.use(express.static(path.join(__dirname, "public"))); //getting the css file and html file
@@ -14,6 +17,7 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
+    console.log("Syncing");
     await syncAndSeed();
     app.listen(port, () => console.log(`listening on port ${port}`));
   } catch (err) {
